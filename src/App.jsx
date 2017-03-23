@@ -2,6 +2,7 @@ import 'aframe';
 import 'aframe-animation-component';
 import 'aframe-text-geometry-component';
 import 'babel-polyfill';
+import { Event } from 'react-socket-io';
 
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
@@ -12,7 +13,8 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {color: 'red'};
+    this.state = {color: 'red', cameraPosition: '0 0 3.8'};
+    this.onMessage = this.onMessage.bind(this);
   }
 
   changeColor() {
@@ -22,12 +24,18 @@ class App extends Component {
     });
   }
 
+  onMessage(message) {
+    this.setState({cameraPosition: '0 10 3.8'});
+    console.log(message);
+  }
+
   render () {
     return (
       <Scene>
+        <Event event='message' handler={this.onMessage} />
         <a-assets></a-assets>
 
-        <Entity position="0 10 3.8" camera="" look-controls="" >
+        <Entity position={this.state.cameraPosition} camera="" look-controls="" >
           <a-cursor
             animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
           >

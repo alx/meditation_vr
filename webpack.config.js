@@ -46,9 +46,9 @@ if (constants.PRODUCTION || constants.STAGE) {
 
 if (constants.LOCAL) {
   plugins.push(new webpack.HotModuleReplacementPlugin());
-  
+
   entries.push('react-hot-loader/patch');
-  entries.push('webpack-dev-server/client?http://localhost:8095');
+  entries.push('webpack-dev-server/client?http://localhost:8090');
   entries.push('webpack/hot/only-dev-server');
 }
 
